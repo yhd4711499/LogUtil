@@ -17,11 +17,11 @@ bool isLogFile(char *filename) {
     return filename[0] != '.';
 }
 
-void splitFilename(const string& str, string &folder, string &filename){
-	size_t found;
-	found = str.find_last_of("/\\");
-	folder = str.substr(0, found);
-	filename = str.substr(found + 1);
+void splitFilename(const string &str, string &folder, string &filename) {
+    size_t found;
+    found = str.find_last_of("/\\");
+    folder = str.substr(0, found);
+    filename = str.substr(found + 1);
 }
 
 bool isFile(const char *path) {
