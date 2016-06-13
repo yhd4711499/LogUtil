@@ -6,3 +6,7 @@ run `cmake` to generate make file or project file for you compiler.
 
 # How to use
 > To be added later
+
+
+# License
+MIT
