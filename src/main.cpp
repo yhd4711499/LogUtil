@@ -14,6 +14,23 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     int ret = 0;
+    if (argc == 1 || cmdOptionExists(argv, argv + argc, "--help")) {
+        cout << "LogUtil: An handy tool to merge/filter log files.\n";
+        cout << "usage :\tlogutil [-df]\n";
+        cout << "\t\t[-o]\n";
+        cout << "\t\t[-b]\n";
+        cout << "\n";
+        cout << "\t-d merge all files under this directory.\n";
+        cout << "\t-f sort this log file.\n";
+        cout << "\t-o output file. [<file_or_dirname>_ALL.log] will be used if not set.\n";
+        cout << "\t-b block rules.\n\n";
+        cout << "examples :\n";
+        cout << "\tlogutil -d ~/LogDir\n";
+        cout << "\tlogutil -d ~/LogDir -b ~/block_rules.json\n";
+        cout << "\tlogutil -d ~/LogDir -o ~/Log_ALL.log\n";
+        cout << "\tlogutil -f ~/LogDir/log.log -o ~/Log_ALL.log\n";
+        return 0;
+    }
     vector<string> files;
     char *dirname = nullptr, *filename = nullptr, *outputFilename = nullptr;
 

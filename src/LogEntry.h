@@ -34,10 +34,10 @@ public:
             LogTime time,
             LogLine logLine,
             LogLevel level,
-            std::string threadName):logTime(time),
-                            line(logLine),
-                            threadName(threadName),
-                            level(level){}
+            std::string threadName) : logTime(time),
+                                      threadName(threadName),
+                                      line(logLine),
+                                      level(level) { }
 };
 
 
