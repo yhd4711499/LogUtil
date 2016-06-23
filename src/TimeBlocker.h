@@ -12,11 +12,13 @@ using namespace std;
 using json = nlohmann::json;
 
 
-class TimeBlocker : Blocker {
+class TimeBlocker : public Blocker {
 public:
     TimeBlocker(const json &j) { init(j); };
 
-    static Blocker* creator(const json & j) {
+//    TimeBlocker(string start, string end) : startTime(start), endTime(end) { }
+
+    static Blocker *creator(const json &j) {
         return new TimeBlocker(j);
     };
 
