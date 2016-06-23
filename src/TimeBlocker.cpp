@@ -11,7 +11,14 @@ void TimeBlocker::parseJson(const json &j) {
 
 bool TimeBlocker::doApply(const LogEntry &item) const {
     string dateTime = item.logTime.date + " " + item.logTime.time;
-    return (dateTime >= startTime && dateTime <= endTime);
+    bool ret = false;
+    if (!startTime.empty()) {
+        ret = dateTime >= startTime;
+    }
+    if (!endTime.empty()) {
+        ret &= dateTime <= endTime;
+    }
+    return ret;
 }
 
 

@@ -9,7 +9,7 @@
 void LogEntryParser::parseFile(string &file, vector<LogEntry *> &out) {
     ifstream is;
 
-    is.open(file);
+    is.open(file, ios::binary);
 
     if (!is) {
         cerr << "Failed to open file : " << file << endl;

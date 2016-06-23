@@ -41,9 +41,14 @@ protected:
     virtual void parseJson(const json &j) = 0;
 
 
+    /**
+     * 是否取反
+     * 默认: false
+     */
+    bool reverse = false;
 private:
-    vector<const Blocker *> children;
 
+    vector<const Blocker *> children;
     /**
      * 组合逻辑
      * 默认: nullOperator
@@ -54,11 +59,6 @@ private:
      * 默认: true
      */
     bool enabled = true;
-    /**
-     * 是否取反
-     * 默认: false
-     */
-    bool reverse = false;
 
 };
 

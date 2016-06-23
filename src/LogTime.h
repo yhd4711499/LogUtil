@@ -16,11 +16,11 @@ public:
     LogTime(std::string d, std::string t):date(d),time(t) {}
 
     bool operator<( const LogTime& val ) const {
-		if (date.compare(val.date) >= 0) {
-			return false;
-		}
-		if (time.compare(val.time) >= 0) {
-			return false;
+		int i = date.compare(val.date);
+		if (i < 0) {
+			return true;
+		} else if (i == 0 && time.compare(val.time) < 0){
+			return true;
 		}
 		return false;
     }

@@ -16,16 +16,18 @@ int main(int argc, char *argv[]) {
     int ret = 0;
     if (argc == 1 || cmdOptionExists(argv, argv + argc, "--help")) {
         cout << "LogUtil: An handy tool to merge/filter log files.\n";
-        cout << "usage :\tlogutil [-df]\n";
-        cout << "\t\t[-o]\n";
-        cout << "\t\t[-b]\n";
+        cout << "usage :\tlogutil";
+        cout << "\t[-d] [-f] [-o] [b] [-start] [-end]\n";
         cout << "\n";
-        cout << "\t-d merge all files under this directory.\n";
-        cout << "\t-f sort this log file.\n";
+        cout << "\t-d merge all files under the directory.\n";
+        cout << "\t-f sort the log file.\n";
         cout << "\t-o output file. [<file_or_dirname>_ALL.log] will be used if not set.\n";
-        cout << "\t-b block rules.\n\n";
+        cout << "\t-b block rules.\n";
+        cout << "\t-start/end show logs between [start , end), \"YYYY-mm-dd hh:MM:SS.SSS\" .\n\n";
         cout << "examples :\n";
         cout << "\tlogutil -d ~/LogDir\n";
+        cout << "\tlogutil -d ~/LogDir -start 2016-06-18\n";
+        cout << "\tlogutil -d ~/LogDir -start 2016-06-18 -end 2016-06-19\n";
         cout << "\tlogutil -d ~/LogDir -b ~/block_rules.json\n";
         cout << "\tlogutil -d ~/LogDir -o ~/Log_ALL.log\n";
         cout << "\tlogutil -f ~/LogDir/log.log -o ~/Log_ALL.log\n";
@@ -60,6 +62,10 @@ int main(int argc, char *argv[]) {
     char *blockFile = getCmdOption(argv, argv + argc, "-b");
 
     outputFilename = getCmdOption(argv, argv + argc, "-o");
+
+    char *startTime = getCmdOption(argv, argv + argc, "-start");
+    char *endTime = getCmdOption(argv, argv + argc, "-end");
+
     if (!outputFilename) {
         if (filename) {
             string folderName, filenameWoDir;
@@ -86,6 +92,13 @@ int main(int argc, char *argv[]) {
         json blockJson;
         blockFs >> blockJson;
         parser.addBlocker(BlockerFactory::create(blockJson));
+    }
+
+    if (startTime || endTime) {
+        string start = startTime ? (string)startTime : "";
+        string end = endTime ? (string)endTime : "";
+        TimeBlocker *blocker = new TimeBlocker(start, end, true);
+        parser.addBlocker(blocker);
     }
 
     vector<LogEntry *> entries;

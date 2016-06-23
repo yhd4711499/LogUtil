@@ -16,7 +16,9 @@ class TimeBlocker : public Blocker {
 public:
     TimeBlocker(const json &j) { init(j); };
 
-//    TimeBlocker(string start, string end) : startTime(start), endTime(end) { }
+    TimeBlocker(string &start, string &end, bool r) : startTime(start), endTime(end) {
+        reverse = r;
+    }
 
     static Blocker *creator(const json &j) {
         return new TimeBlocker(j);
