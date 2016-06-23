@@ -18,7 +18,7 @@ public:
     bool operator<( const LogTime& val ) const {
 		if (date.compare(val.date) < 0) {
 			return true;
-		} else if (time.compare(val.time) < 0){
+		} else if (date.compare(val.date) == 0 && time.compare(val.time) < 0){
 			return true;
 		}
 		return false;
