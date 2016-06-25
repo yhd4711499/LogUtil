@@ -11,20 +11,16 @@ bool Blocker::apply(const LogEntry &item) const {
         result = doApply(item);
     } else if (conditionOperator == andOperator) {
         for (auto child : children) {
-            if (!child->apply(item)) {
-                result = false;
+            if (!(result = child->apply(item))) {
                 goto exit;
             }
         }
-        result = true;
     } else if (conditionOperator == orOperator) {
         for (auto child : children) {
-            if (child->apply(item)) {
-                result = true;
+            if ((result = child->apply(item))) {
                 goto exit;
             }
         }
-        result = false;
     }
     exit:
     return reverse == !result;
@@ -42,10 +38,11 @@ void Blocker::init(const json &j) {
     find = j.find("children");
     if (find != j.end() && find.value().is_array()) {
         for (const json &child : find.value()) {
-            children.push_back(BlockerFactory::create(child));
+            Blocker *blocker = BlockerFactory::create(child);
+            if (blocker->enabled) {
+                children.push_back(blocker);
+            }
         }
-    } else {
-        parseJson(j);
     }
 
     find = j.find("reverse");
@@ -57,6 +54,8 @@ void Blocker::init(const json &j) {
     if (find != j.end()) {
         enabled = find.value();
     }
+    
+    parseJson(j);
 }
 
 

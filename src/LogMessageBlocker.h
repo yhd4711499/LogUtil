@@ -28,8 +28,9 @@ protected:
     virtual void parseJson(const json &j);
 
 private:
-    Scope scope;
     vector<string> words;
+    ConditionOperator wordsConditionOperator;
+    
 };
 
 #endif //WNSLOGHELPER_LOGMESSAGEBLOCKER_H

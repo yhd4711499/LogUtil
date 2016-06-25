@@ -5,18 +5,32 @@
 #include "LogMessageBlocker.h"
 
 bool LogMessageBlocker::doApply(const LogEntry &item) const {
-    if (scope == wholeLogLine) {
-        for (auto &word : words) {
-            if (item.line.lines[0].find(word) != string::npos) {
-                return true;
+    bool result;
+    string line = item.line.lines[0];
+    switch (wordsConditionOperator) {
+        case andOperator:
+            result = true;
+            for (auto &word : words) {
+                if (!(result = (line.find(word) != string::npos))) {
+                    break;
+                }
             }
-        }
+            break;
+        case orOperator:
+            for (auto &word : words) {
+                if ((result = (line.find(word) != string::npos))) {
+                    break;
+                }
+            }
+            break;
+        default:
+            throw runtime_error("unknown wordsConditionOperator");
     }
-    return false;
+    
+    return result;
 }
 
 void LogMessageBlocker::parseJson(const json &j) {
-    scope = (Scope) j["scope"].get<int>();
     json words_json = j["words"];
     if (words_json.is_array()) {
         for (json &word : words_json) {
@@ -24,6 +38,13 @@ void LogMessageBlocker::parseJson(const json &j) {
         }
     } else {
         words.push_back(words_json);
+    }
+    
+    auto wordsConditionOperator_json = j.find("words_operator");
+    if (wordsConditionOperator_json != j.end()) {
+        wordsConditionOperator = (ConditionOperator)wordsConditionOperator_json->get<int>();
+    } else {
+        wordsConditionOperator = andOperator;
     }
 }
 

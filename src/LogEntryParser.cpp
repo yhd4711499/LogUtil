@@ -48,7 +48,7 @@ void LogEntryParser::parseFile(istream &stream, vector<LogEntry *> &out) {
 
     auto end = std::remove_if(out.begin(), out.end(), [this](const LogEntry *entry) {
         for (auto &blocker : blockers) {
-            if (blocker->apply(*entry)) {
+            if (blocker->isEnabled() && blocker->apply(*entry)) {
                 return true;
             }
         }

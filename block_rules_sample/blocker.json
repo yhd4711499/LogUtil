@@ -1,24 +1,22 @@
 {
 	"type" : "root",
 	"description" : "Root rule must be type=root. [operator] means (1: and, 2: or)",
-	"operator" : 2,
+	"operator" : 1,
 	"enabled" : true,
-	"reverse" : false,
+	"filterType" : 2,
 	"children" : [
 		{
 			"type" : "time",
 			"description" : "Keep log between [start, end]. If reverse set to false, this rule will block log between [start, end].",
-			"start" : "2016-06-09 11:02:53.399",
-			"end" : "2016-06-09 11:02:54.657",
-			"reverse" : true,
+			"start" : "2016-06-18 22:24:24.000",
+			"end" : "2016-06-19",
+			"enabled" : true
 		},
 		{
 			"type" : "log",
-			"words" : ["header", "is"],
-			"description" : "Keep log contains \"header\" and \"is\". If reverse set to false, this rule will block log contains any of the words.",
-			"start" : "2016-06-09 11:02:53.399",
-			"end" : "2016-06-09 11:02:54.657",
-			"reverse" : true,
-		},
+			"words" : ["main" , "AppStarterActivity"],
+			"words_operator" : 2,
+			"description" : "Keep log contains \"header\" and \"is\". If reverse set to false, this rule will block log contains any of the words."
+		}
 	]
 }

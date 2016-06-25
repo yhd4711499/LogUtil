@@ -15,7 +15,7 @@ bool TimeBlocker::doApply(const LogEntry &item) const {
     if (!startTime.empty()) {
         ret = dateTime >= startTime;
     }
-    if (!endTime.empty()) {
+    if (ret && !endTime.empty()) {
         ret &= dateTime <= endTime;
     }
     return ret;

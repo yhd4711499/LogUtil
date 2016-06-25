@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     if (argc == 1 || cmdOptionExists(argv, argv + argc, "--help")) {
         cout << "LogUtil: An handy tool to merge/filter log files.\n";
         cout << "usage :\tlogutil";
-        cout << "\t[-d] [-f] [-o] [b] [-start] [-end]\n";
+        cout << "\t[-d] [-f] [-o] [-b] [-start] [-end]\n";
         cout << "\n";
         cout << "\t-d merge all files under the directory.\n";
         cout << "\t-f sort the log file.\n";
@@ -60,12 +60,10 @@ int main(int argc, char *argv[]) {
     }
 
     char *blockFile = getCmdOption(argv, argv + argc, "-b");
-
-    outputFilename = getCmdOption(argv, argv + argc, "-o");
-
     char *startTime = getCmdOption(argv, argv + argc, "-start");
     char *endTime = getCmdOption(argv, argv + argc, "-end");
 
+    outputFilename = getCmdOption(argv, argv + argc, "-o");
     if (!outputFilename) {
         if (filename) {
             string folderName, filenameWoDir;
@@ -106,7 +104,9 @@ int main(int argc, char *argv[]) {
     for (string file : files) {
         try {
             parser.parseFile(file, entries);
-        } catch (...) {
+        } catch (runtime_error & error) {
+            cerr << "Failed to parse file : " << file << ". error: " << error.what() << endl;
+        }catch (...) {
             cerr << "Failed to parse file : " << file << endl;
         }
     }

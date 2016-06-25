@@ -22,6 +22,8 @@ enum ConditionOperator {
 
 class Blocker {
 public:
+    bool isEnabled() { return enabled; }
+    
     virtual bool apply(const LogEntry &item) const;
 
     void addChildren(const Blocker &);
