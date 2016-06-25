@@ -15,7 +15,7 @@ using namespace std;
 int main(int argc, char *argv[]) {
     int ret = 0;
     if (argc == 1 || cmdOptionExists(argv, argv + argc, "--help")) {
-        cout << "LogUtil: An handy tool to merge/filter log files.\n";
+        cout << "LogUtil: A handy tool to merge/filter log files.\n";
         cout << "usage :\tlogutil";
         cout << "\t[-d] [-f] [-o] [-r] [-start] [-end]\n";
         cout << "\n";
