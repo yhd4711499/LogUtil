@@ -17,12 +17,12 @@ int main(int argc, char *argv[]) {
     if (argc == 1 || cmdOptionExists(argv, argv + argc, "--help")) {
         cout << "LogUtil: An handy tool to merge/filter log files.\n";
         cout << "usage :\tlogutil";
-        cout << "\t[-d] [-f] [-o] [-b] [-start] [-end]\n";
+        cout << "\t[-d] [-f] [-o] [-r] [-start] [-end]\n";
         cout << "\n";
         cout << "\t-d merge all files under the directory.\n";
         cout << "\t-f sort the log file.\n";
         cout << "\t-o output file. [<file_or_dirname>_ALL.log] will be used if not set.\n";
-        cout << "\t-b block rules.\n";
+        cout << "\t-r filter rules.\n";
         cout << "\t-start/end show logs between [start , end), \"YYYY-mm-dd hh:MM:SS.SSS\" .\n\n";
         cout << "examples :\n";
         cout << "\tlogutil -d ~/LogDir\n";
