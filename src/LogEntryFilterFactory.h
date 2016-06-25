@@ -8,19 +8,19 @@
 #include <vector>
 #include <functional>
 #include "json.hpp"
-#include "Blocker.h"
+#include "LogEntryFilter.h"
 
 using json = nlohmann::json;
 using namespace std;
 
-typedef Blocker *(*Creator)(const json &);
+typedef LogEntryFilter *(*Creator)(const json &);
 
-class BlockerFactory {
+class LogEntryFilterFactory {
 public:
 
     static void registerCreator(const string &, Creator);
 
-    static Blocker *create(const json &);
+    static LogEntryFilter *create(const json &);
 
 private:
     static map<string, Creator> factoryMap;

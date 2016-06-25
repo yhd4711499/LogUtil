@@ -6,22 +6,22 @@
 #define WNSLOGHELPER_TIMEBLOCKER_H
 
 #include "LogEntry.h"
-#include "Blocker.h"
+#include "LogEntryFilter.h"
 
 using namespace std;
 using json = nlohmann::json;
 
 
-class TimeBlocker : public Blocker {
+class LogEntryTimeFilter : public LogEntryFilter {
 public:
-    TimeBlocker(const json &j) { init(j); };
+    LogEntryTimeFilter(const json &j) { init(j); };
 
-    TimeBlocker(string &start, string &end, bool r) : startTime(start), endTime(end) {
+    LogEntryTimeFilter(string &start, string &end, bool r) : startTime(start), endTime(end) {
         reverse = r;
     }
 
-    static Blocker *creator(const json &j) {
-        return new TimeBlocker(j);
+    static LogEntryFilter *creator(const json &j) {
+        return new LogEntryTimeFilter(j);
     };
 
 protected:

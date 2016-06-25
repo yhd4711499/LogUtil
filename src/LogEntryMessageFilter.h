@@ -6,7 +6,7 @@
 #define WNSLOGHELPER_LOGMESSAGEBLOCKER_H
 
 #include "LogEntry.h"
-#include "Blocker.h"
+#include "LogEntryFilter.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -16,11 +16,11 @@ enum Scope {
     wholeLogLine = 1,
 };
 
-class LogMessageBlocker : Blocker {
+class LogEntryMessageFilter : LogEntryFilter {
 public:
-    LogMessageBlocker(const json &j) { init(j); };
-    static Blocker* creator(const json & j) {
-        return new LogMessageBlocker(j);
+    LogEntryMessageFilter(const json &j) { init(j); };
+    static LogEntryFilter* creator(const json & j) {
+        return new LogEntryMessageFilter(j);
     };
 protected:
     virtual bool doApply(const LogEntry &item) const;

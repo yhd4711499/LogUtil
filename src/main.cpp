@@ -1,14 +1,14 @@
 #include <fstream>
 #include <vector>
-#include "Blocker.h"
-#include "RootBlocker.h"
-#include "LogMessageBlocker.h"
-#include "TimeBlocker.h"
+#include "LogEntryFilter.h"
+#include "LogEntryRootFilter.h"
+#include "LogEntryMessageFilter.h"
+#include "LogEntryTimeFilter.h"
 #include "FileUtils.hpp"
 #include "CommandLineUtils.hpp"
 #include "LogEntryParser.h"
 #include "Rearranger.h"
-#include "BlockerFactory.h"
+#include "LogEntryFilterFactory.h"
 
 using namespace std;
 
@@ -79,9 +79,9 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    BlockerFactory::registerCreator("root", RootBlocker::creator);
-    BlockerFactory::registerCreator("log", LogMessageBlocker::creator);
-    BlockerFactory::registerCreator("time", TimeBlocker::creator);
+    LogEntryFilterFactory::registerCreator("root", LogEntryRootFilter::creator);
+    LogEntryFilterFactory::registerCreator("log", LogEntryMessageFilter::creator);
+    LogEntryFilterFactory::registerCreator("time", LogEntryTimeFilter::creator);
 
     LogEntryParser parser;
 
@@ -89,13 +89,13 @@ int main(int argc, char *argv[]) {
         auto blockFs = fstream(blockFile);
         json blockJson;
         blockFs >> blockJson;
-        parser.addBlocker(BlockerFactory::create(blockJson));
+        parser.addBlocker(LogEntryFilterFactory::create(blockJson));
     }
 
     if (startTime || endTime) {
         string start = startTime ? (string)startTime : "";
         string end = endTime ? (string)endTime : "";
-        TimeBlocker *blocker = new TimeBlocker(start, end, true);
+        LogEntryTimeFilter *blocker = new LogEntryTimeFilter(start, end, true);
         parser.addBlocker(blocker);
     }
 

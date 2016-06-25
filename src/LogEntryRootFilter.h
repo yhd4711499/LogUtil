@@ -6,7 +6,7 @@
 #define WNSLOGHELPER_ROOTBLOCKER_H
 
 #include "LogEntry.h"
-#include "Blocker.h"
+#include "LogEntryFilter.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -16,18 +16,18 @@ enum FilterType {
     filterIn = 2
 };
 
-class RootBlocker : Blocker {
+class LogEntryRootFilter : LogEntryFilter {
 
 public:
-    static Blocker *creator(const json &j) {
-        RootBlocker *blocker = new RootBlocker();
+    static LogEntryFilter *creator(const json &j) {
+        LogEntryRootFilter *blocker = new LogEntryRootFilter();
         blocker->init(j);
         return blocker;
     };
     virtual bool apply(const LogEntry &item) const override;
 
 private:
-    RootBlocker() {};
+    LogEntryRootFilter() {};
 
     FilterType filterType;
 protected:

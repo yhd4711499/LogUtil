@@ -2,9 +2,9 @@
 // Created by 袁浩东 on 16/6/11.
 //
 
-#include "LogMessageBlocker.h"
+#include "LogEntryMessageFilter.h"
 
-bool LogMessageBlocker::doApply(const LogEntry &item) const {
+bool LogEntryMessageFilter::doApply(const LogEntry &item) const {
     bool result;
     string line = item.line.lines[0];
     switch (wordsConditionOperator) {
@@ -30,7 +30,7 @@ bool LogMessageBlocker::doApply(const LogEntry &item) const {
     return result;
 }
 
-void LogMessageBlocker::parseJson(const json &j) {
+void LogEntryMessageFilter::parseJson(const json &j) {
     json words_json = j["words"];
     if (words_json.is_array()) {
         for (json &word : words_json) {

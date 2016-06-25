@@ -20,19 +20,19 @@ enum ConditionOperator {
     orOperator = 2
 };
 
-class Blocker {
+class LogEntryFilter {
 public:
     bool isEnabled() { return enabled; }
     
     virtual bool apply(const LogEntry &item) const;
 
-    void addChildren(const Blocker &);
+    void addChildren(const LogEntryFilter &);
 
-//    Blocker(const ConditionOperator conditionOperator) : conditionOperator(conditionOperator) { }
+//    LogEntryFilter(const ConditionOperator conditionOperator) : conditionOperator(conditionOperator) { }
 
     virtual void init(const json &j);
 
-    virtual ~Blocker() {
+    virtual ~LogEntryFilter() {
         delete_v(children);
     }
 protected:
@@ -50,7 +50,7 @@ protected:
     bool reverse = false;
 private:
 
-    vector<const Blocker *> children;
+    vector<const LogEntryFilter *> children;
     /**
      * 组合逻辑
      * 默认: nullOperator

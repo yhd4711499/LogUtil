@@ -8,7 +8,7 @@
 #include <vector>
 #include <istream>
 #include "LogEntry.h"
-#include "Blocker.h"
+#include "LogEntryFilter.h"
 #include "ptr.h"
 
 using namespace std;
@@ -28,7 +28,7 @@ public:
 
     void parseFile(istream &, vector<LogEntry *> &);
 
-    void addBlocker(Blocker *);
+    void addBlocker(LogEntryFilter *);
 
     ~LogEntryParser() {
         delete_v(blockers);
@@ -39,7 +39,7 @@ private:
 
     inline bool isLineValid(string &);
 
-    vector<Blocker *> blockers;
+    vector<LogEntryFilter *> blockers;
 };
 
 

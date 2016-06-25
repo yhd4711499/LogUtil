@@ -2,10 +2,10 @@
 // Created by 袁浩东 on 16/6/11.
 //
 
-#include "Blocker.h"
-#include "BlockerFactory.h"
+#include "LogEntryFilter.h"
+#include "LogEntryFilterFactory.h"
 
-bool Blocker::apply(const LogEntry &item) const {
+bool LogEntryFilter::apply(const LogEntry &item) const {
     bool result = false;
     if (conditionOperator == nullOperator) {
         result = doApply(item);
@@ -26,11 +26,11 @@ bool Blocker::apply(const LogEntry &item) const {
     return reverse == !result;
 }
 
-void Blocker::addChildren(const Blocker &child) {
+void LogEntryFilter::addChildren(const LogEntryFilter &child) {
     children.push_back(&child);
 }
 
-void Blocker::init(const json &j) {
+void LogEntryFilter::init(const json &j) {
     auto find = j.find("operator");
     if (find != j.end()) {
         conditionOperator = (ConditionOperator) find.value().get<int>();
@@ -38,7 +38,7 @@ void Blocker::init(const json &j) {
     find = j.find("children");
     if (find != j.end() && find.value().is_array()) {
         for (const json &child : find.value()) {
-            Blocker *blocker = BlockerFactory::create(child);
+            LogEntryFilter *blocker = LogEntryFilterFactory::create(child);
             if (blocker->enabled) {
                 children.push_back(blocker);
             }
