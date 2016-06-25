@@ -11,11 +11,6 @@
 using namespace std;
 using json = nlohmann::json;
 
-enum Scope {
-    thisLine = 0,
-    wholeLogLine = 1,
-};
-
 class LogEntryMessageFilter : LogEntryFilter {
 public:
     LogEntryMessageFilter(const json &j) { init(j); };

@@ -14,7 +14,7 @@ LogEntryFilter* LogEntryFilterFactory::create(const json &j) {
     string type = j["type"];
     auto creator = LogEntryFilterFactory::factoryMap.find(type);
     if (creator == LogEntryFilterFactory::factoryMap.end()) {
-        throw exception();
+        throw runtime_error("failed to find creator of type : " + type);
     }
 
     return creator->second(j);

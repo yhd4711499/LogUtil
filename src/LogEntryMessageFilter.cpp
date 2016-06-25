@@ -5,11 +5,10 @@
 #include "LogEntryMessageFilter.h"
 
 bool LogEntryMessageFilter::doApply(const LogEntry &item) const {
-    bool result;
+    bool result = false;
     string line = item.line.lines[0];
     switch (wordsConditionOperator) {
         case andOperator:
-            result = true;
             for (auto &word : words) {
                 if (!(result = (line.find(word) != string::npos))) {
                     break;
