@@ -7,7 +7,7 @@
 void LogEntryRootFilter::parseJson(const json &j) {
     auto filterType_json = j.find("filterType");
     if (filterType_json != j.end()) {
-        filterType = (FilterType)filterType_json->get<int>();
+        filterType = (FilterType) filterType_json->get<int>();
     } else {
         filterType = filterIn;
     }

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-std::ostream &operator<<(std::ostream &os, const LogLine& entry) {
+std::ostream &operator<<(std::ostream &os, const LogLine &entry) {
     //int index = entry.orderedIndex;
     for (auto &line : entry.lines) {
         os << line << endl;

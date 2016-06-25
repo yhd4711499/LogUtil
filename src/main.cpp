@@ -93,8 +93,8 @@ int main(int argc, char *argv[]) {
     }
 
     if (startTime || endTime) {
-        string start = startTime ? (string)startTime : "";
-        string end = endTime ? (string)endTime : "";
+        string start = startTime ? (string) startTime : "";
+        string end = endTime ? (string) endTime : "";
         LogEntryTimeFilter *blocker = new LogEntryTimeFilter(start, end, true);
         parser.addBlocker(blocker);
     }
@@ -104,9 +104,9 @@ int main(int argc, char *argv[]) {
     for (string file : files) {
         try {
             parser.parseFile(file, entries);
-        } catch (runtime_error & error) {
+        } catch (runtime_error &error) {
             cerr << "Failed to parse file : " << file << ". error: " << error.what() << endl;
-        }catch (...) {
+        } catch (...) {
             cerr << "Failed to parse file : " << file << endl;
         }
     }

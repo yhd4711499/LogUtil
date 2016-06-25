@@ -10,7 +10,7 @@ void LogEntryFilterFactory::registerCreator(const string &type, Creator creator)
     factoryMap.insert(make_pair(type, creator));
 }
 
-LogEntryFilter* LogEntryFilterFactory::create(const json &j) {
+LogEntryFilter *LogEntryFilterFactory::create(const json &j) {
     string type = j["type"];
     auto creator = LogEntryFilterFactory::factoryMap.find(type);
     if (creator == LogEntryFilterFactory::factoryMap.end()) {

@@ -5,11 +5,9 @@
 #ifndef WNSLOGHELPER_PTR_H
 #define WNSLOGHELPER_PTR_H
 
-struct delete_ptr
-{
-    template <class T>
-    void operator()(T* p)
-    {
+struct delete_ptr {
+    template<class T>
+    void operator()(T *p) {
         delete p;
     }
 };

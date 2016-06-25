@@ -23,7 +23,7 @@ enum ConditionOperator {
 class LogEntryFilter {
 public:
     bool isEnabled() { return enabled; }
-    
+
     virtual bool apply(const LogEntry &item) const;
 
     void addChildren(const LogEntryFilter &);
@@ -35,6 +35,7 @@ public:
     virtual ~LogEntryFilter() {
         delete_v(children);
     }
+
 protected:
 
     virtual bool doApply(const LogEntry &item) const = 0;

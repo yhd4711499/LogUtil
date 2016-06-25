@@ -54,7 +54,7 @@ void LogEntryFilter::init(const json &j) {
     if (find != j.end()) {
         enabled = find.value();
     }
-    
+
     parseJson(j);
 }
 

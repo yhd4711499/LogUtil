@@ -14,7 +14,8 @@ using json = nlohmann::json;
 class LogEntryMessageFilter : LogEntryFilter {
 public:
     LogEntryMessageFilter(const json &j) { init(j); };
-    static LogEntryFilter* creator(const json & j) {
+
+    static LogEntryFilter *creator(const json &j) {
         return new LogEntryMessageFilter(j);
     };
 protected:
@@ -25,7 +26,7 @@ protected:
 private:
     vector<string> words;
     ConditionOperator wordsConditionOperator;
-    
+
 };
 
 #endif //WNSLOGHELPER_LOGMESSAGEBLOCKER_H

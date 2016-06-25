@@ -13,6 +13,7 @@ public:
     int orderedIndex;
     int originalIndex;
     std::vector<std::string> lines;
+
     static bool isMainLine(std::string &line);
 };
 

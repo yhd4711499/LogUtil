@@ -15,7 +15,7 @@ using namespace std;
  */
 class Rearranger {
 public:
-    void sort(vector<LogEntry*>&);
+    void sort(vector<LogEntry *> &);
 };
 
 

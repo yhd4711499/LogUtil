@@ -25,7 +25,7 @@ bool LogEntryMessageFilter::doApply(const LogEntry &item) const {
         default:
             throw runtime_error("unknown wordsConditionOperator");
     }
-    
+
     return result;
 }
 
@@ -38,10 +38,10 @@ void LogEntryMessageFilter::parseJson(const json &j) {
     } else {
         words.push_back(words_json);
     }
-    
+
     auto wordsConditionOperator_json = j.find("wordsOperator");
     if (wordsConditionOperator_json != j.end()) {
-        wordsConditionOperator = (ConditionOperator)wordsConditionOperator_json->get<int>();
+        wordsConditionOperator = (ConditionOperator) wordsConditionOperator_json->get<int>();
     } else {
         wordsConditionOperator = andOperator;
     }

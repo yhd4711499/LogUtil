@@ -24,16 +24,17 @@ public:
         blocker->init(j);
         return blocker;
     };
+
     virtual bool apply(const LogEntry &item) const override;
 
 private:
-    LogEntryRootFilter() {};
+    LogEntryRootFilter() { };
 
     FilterType filterType;
 protected:
     virtual bool doApply(const LogEntry &item) const override { throw exception(); };
 
-    virtual void parseJson(const json &j) override ;
+    virtual void parseJson(const json &j) override;
 
 };
 
