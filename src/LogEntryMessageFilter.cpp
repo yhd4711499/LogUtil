@@ -39,7 +39,7 @@ void LogEntryMessageFilter::parseJson(const json &j) {
         words.push_back(words_json);
     }
     
-    auto wordsConditionOperator_json = j.find("words_operator");
+    auto wordsConditionOperator_json = j.find("wordsOperator");
     if (wordsConditionOperator_json != j.end()) {
         wordsConditionOperator = (ConditionOperator)wordsConditionOperator_json->get<int>();
     } else {
