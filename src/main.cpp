@@ -95,7 +95,12 @@ int main(int argc, char *argv[]) {
     if (startTime || endTime) {
         string start = startTime ? (string) startTime : "";
         string end = endTime ? (string) endTime : "";
-        LogEntryTimeFilter *blocker = new LogEntryTimeFilter(start, end, true);
+        LogEntryTimeFilter *blocker = new LogEntryTimeFilter(
+			LogEntryTimeFilter::getDate(start), 
+			LogEntryTimeFilter::getTime(start), 
+			LogEntryTimeFilter::getDate(end), 
+			LogEntryTimeFilter::getTime(end), 
+			true);
         parser.addBlocker(blocker);
     }
 

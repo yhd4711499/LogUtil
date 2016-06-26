@@ -14,14 +14,44 @@ using json = nlohmann::json;
 
 class LogEntryTimeFilter : public LogEntryFilter {
 public:
-    LogEntryTimeFilter(const json &j) { init(j); };
+	LogEntryTimeFilter(string &startDate, string &startTime, string &endDate, string &endTime, bool r)
+		: startTime(LogTime::from(startDate, startTime))
+		, endTime(LogTime::from(endDate, endTime)) {
+		reverse = r;
+	}
 
-    LogEntryTimeFilter(string &start, string &end, bool r) : startTime(start), endTime(end) {
-        reverse = r;
-    }
+	LogEntryTimeFilter(const json &j, string &startDate, string &startTime, string &endDate, string &endTime)
+		: startTime(LogTime::from(startDate, startTime))
+		, endTime(LogTime::from(endDate, endTime)) {
+		init(j);
+	}
+
+	static inline string getDate(string &dateTime) {
+		if (dateTime.length() >= 10) {
+			return dateTime.substr(0, 10);
+		}
+		else {
+			return dateTime.substr(0);
+		}
+	}
+
+	static inline string getTime(string &dateTime) {
+		if (dateTime.length() >= 23) {
+			return dateTime.substr(11, 12);
+		}
+		else if (dateTime.length() > 11) {
+			return dateTime.substr(11);
+		}
+		else {
+			return "";
+		}
+	}
 
     static LogEntryFilter *creator(const json &j) {
-        return new LogEntryTimeFilter(j);
+		string start = j["start"];
+		string end = j["end"];
+
+        return new LogEntryTimeFilter(j, getDate(start), getTime(start), getDate(end), getTime(end));
     };
 
 protected:
@@ -30,9 +60,8 @@ protected:
     virtual void parseJson(const json &j);
 
 private:
-    string startTime;
-    string endTime;
+    LogTime startTime;
+	LogTime endTime;
 };
-
 
 #endif //WNSLOGHELPER_TIMEBLOCKER_H

@@ -5,18 +5,15 @@
 #include "LogEntryTimeFilter.h"
 
 void LogEntryTimeFilter::parseJson(const json &j) {
-    startTime = j["start"];
-    endTime = j["end"];
 }
 
 bool LogEntryTimeFilter::doApply(const LogEntry &item) const {
-    string dateTime = item.logTime.date + " " + item.logTime.time;
     bool ret = false;
     if (!startTime.empty()) {
-        ret = dateTime >= startTime;
+        ret = item.logTime >= startTime;
     }
     if (ret && !endTime.empty()) {
-        ret &= dateTime <= endTime;
+        ret &= item.logTime <= endTime;
     }
     return ret;
 }
