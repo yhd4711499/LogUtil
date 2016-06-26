@@ -4,6 +4,6 @@
 
 #include "LogTime.h"
 
-LogTime LogTime::from(const string & date, const string & time) {
-	return LogTime(date, time);
+LogTime LogTime::from(const string &date, const string &time) {
+    return LogTime(date, time);
 }
