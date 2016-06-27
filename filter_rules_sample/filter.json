@@ -9,22 +9,22 @@
 	"children" : [
 		{
 			"type" : "time",
-			"description" : "Keep log between [start, end].",
+			"description" : "Log between [start, end].",
 			"start" : "2016-06-18 22:24:24.000",
 			"end" : "2016-06-19",
 			"enabled" : true,
 			"_enabled_comment" : "this rule will not add to root if not enabled",
 			"reverse" : false,
-			"_reverse_comment" : "If reverse set to true, this rule match match log not between [start, end]."
+			"_reverse_comment" : "If reverse set to true, logs not between [start, end] will match this rule."
 		},
 		{
 			"type" : "log",
 			"words" : ["main" , "AppStarterActivity"],
-			"description" : "Keep log contains \"header\" and \"is\".",
+			"description" : "Log containing \"header\" and \"is\".",
 			"wordsOperator" : 1,
 			"_wordsOperator_comment" : "1: matching all, 2: matching any",
 			"reverse" : false,
-			"_reverse_comment" : "If reverse set to true, this rule will match logs not containing any of the words."
+			"_reverse_comment" : "If reverse set to true, logs not containing any of the words will match this rule."
 		}
 	]
 }
