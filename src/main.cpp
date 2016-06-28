@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
         return ret;
     }
 
-    char *blockFile = getCmdOption(argv, argv + argc, "-b");
+    char *blockFile = getCmdOption(argv, argv + argc, "-r");
     char *startTime = getCmdOption(argv, argv + argc, "-start");
     char *endTime = getCmdOption(argv, argv + argc, "-end");
 
