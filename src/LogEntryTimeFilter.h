@@ -14,12 +14,12 @@ using json = nlohmann::json;
 
 class LogEntryTimeFilter : public LogEntryFilter {
 public:
-    LogEntryTimeFilter(string &startDate, string &startTime, string &endDate, string &endTime, bool r)
+    LogEntryTimeFilter(const string &startDate, const string &startTime, const string &endDate, const string &endTime, bool r)
             : startTime(LogTime::from(startDate, startTime)), endTime(LogTime::from(endDate, endTime)) {
         reverse = r;
     }
 
-    LogEntryTimeFilter(const json &j, string &startDate, string &startTime, string &endDate, string &endTime)
+    LogEntryTimeFilter(const json &j, const string &startDate, const string &startTime, const string &endDate, const string &endTime)
             : startTime(LogTime::from(startDate, startTime)), endTime(LogTime::from(endDate, endTime)) {
         init(j);
     }

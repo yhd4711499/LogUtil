@@ -28,7 +28,7 @@ public:
 
     void parseFile(istream &, vector<LogEntry *> &);
 
-    void addBlocker(LogEntryFilter *);
+    void addFilter(LogEntryFilter *);
 
     ~LogEntryParser() {
         delete_v(blockers);

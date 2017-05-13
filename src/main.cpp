@@ -9,8 +9,11 @@
 #include "LogEntryParser.h"
 #include "Rearranger.h"
 #include "LogEntryFilterFactory.h"
+#include "alphanum.hpp"
 
 using namespace std;
+
+void sortFiles(vector<string> &files);
 
 int main(int argc, char *argv[]) {
     int ret = 0;
@@ -53,13 +56,14 @@ int main(int argc, char *argv[]) {
 
     if (dirname) {
         ret = listFiles(dirname, files);
+        sortFiles(files);
     }
 
     if (ret != 0) {
         return ret;
     }
 
-    char *blockFile = getCmdOption(argv, argv + argc, "-r");
+    char *filterRultFile = getCmdOption(argv, argv + argc, "-r");
     char *startTime = getCmdOption(argv, argv + argc, "-start");
     char *endTime = getCmdOption(argv, argv + argc, "-end");
 
@@ -85,23 +89,23 @@ int main(int argc, char *argv[]) {
 
     LogEntryParser parser;
 
-    if (blockFile) {
-        auto blockFs = fstream(blockFile);
-        json blockJson;
-        blockFs >> blockJson;
-        parser.addBlocker(LogEntryFilterFactory::create(blockJson));
+    if (filterRultFile) {
+        auto fileRuleStream = fstream(filterRultFile);
+        json fileRuleJson;
+        fileRuleStream >> fileRuleJson;
+        parser.addFilter(LogEntryFilterFactory::create(fileRuleJson));
     }
 
     if (startTime || endTime) {
         string start = startTime ? (string) startTime : "";
         string end = endTime ? (string) endTime : "";
-        LogEntryTimeFilter *blocker = new LogEntryTimeFilter(
+        LogEntryTimeFilter *filter = new LogEntryTimeFilter(
                 LogEntryTimeFilter::getDate(start),
                 LogEntryTimeFilter::getTime(start),
                 LogEntryTimeFilter::getDate(end),
                 LogEntryTimeFilter::getTime(end),
                 true);
-        parser.addBlocker(blocker);
+        parser.addFilter(filter);
     }
 
     vector<LogEntry *> entries;
@@ -137,4 +141,35 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
+}
+
+void sortFiles(vector<string> &files) {
+    /*
+     * A little tricky here: files must be sorted in natural order on filename.
+     * Or output result might be mis-ordered on log entries with same timestamp but stored in separate files.
+     *
+     * For example.
+     *
+     * We'ev two logs files:
+     *
+     * 9.log ([2000-1-1 00:00:00,000] A)
+     * 10.log ([2000-1-1 00:00:00,000] B)
+     *
+     * log [A] is printed before log [B] but both in the same time [2000-1-1 00:00:00,000].
+     *
+     * After sorting by ascii comparing on filename:
+     * 10.log
+     * 9.log
+     *
+     * Then we first parse [B] from 10.log and then [A] from 9.log:
+     *
+     * [2000-1-1 00:00:00,000] B
+     * [2000-1-1 00:00:00,000] A
+     *
+     * So the sorting order of files must be the same as generating.
+     *
+     */
+    sort(files.begin(), files.end(), [](string &lhs, string &rhs) {
+            return doj::alphanum_comp(lhs, rhs) < 0;
+        });
 }

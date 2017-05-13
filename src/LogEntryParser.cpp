@@ -104,8 +104,8 @@ bool LogEntryParser::isLineValid(string &line) {
     return line.size() != 0;
 }
 
-void LogEntryParser::addBlocker(LogEntryFilter *blocker) {
-    blockers.push_back(blocker);
+void LogEntryParser::addFilter(LogEntryFilter *filter) {
+    blockers.push_back(filter);
 }
 
 
