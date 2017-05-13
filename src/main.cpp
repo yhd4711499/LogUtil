@@ -23,7 +23,6 @@ using namespace std;
 void sortFiles(vector<string> &files);
 
 int main(int argc, char *argv[]) {
-
     setlocale(LC_ALL, "");
     int ret = 0;
     if (argc == 1 || cmdOptionExists(argv, argv + argc, "--help")) {
@@ -82,7 +81,7 @@ int main(int argc, char *argv[]) {
     char *endTime = getCmdOption(argv, argv + argc, "-end");
 
     outputFilename = getCmdOption(argv, argv + argc, "-o");
-    if (!strncmp(outputFilename, "std", 3)) {
+    if (outputFilename && !strncmp(outputFilename, "std", 3)) {
         outputFilename = NULL;
     } else if (!outputFilename) {
         if (filename) {
