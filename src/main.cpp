@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
         cout << "\tlogutil -d ~/LogDir\n";
         cout << "\tlogutil -d ~/LogDir -start 2016-06-18\n";
         cout << "\tlogutil -d ~/LogDir -start 2016-06-18 -end 2016-06-19\n";
-        cout << "\tlogutil -d ~/LogDir -f ~/block_rules.json\n";
+        cout << "\tlogutil -d ~/LogDir -r ~/block_rules.json\n";
         cout << "\tlogutil -d ~/LogDir -o ~/Log_ALL.log\n";
         cout << "\tlogutil -f ~/LogDir/log.log -o ~/Log_ALL.log\n";
         return 0;
