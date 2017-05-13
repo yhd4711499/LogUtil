@@ -53,7 +53,6 @@ int listFiles(const char *dirname, vector<string> &out) {
         }
         closedir(dir);
     } else {
-        perror("Failed to visit directory!");
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
